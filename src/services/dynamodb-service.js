@@ -5,6 +5,7 @@ const {
   QueryCommand,
   ScanCommand
 } = require('@aws-sdk/client-dynamodb')
+const getAgroScore = require('../helper/agro-score')
 
 const dynamodbClient = new DynamoDBClient({ region: process.env.AWS_REGION })
 const tableName = process.env.DYNAMO_TABLE_NAME
@@ -44,7 +45,11 @@ async function queryByDay(day) {
   try {
     const command = new QueryCommand(payload)
     const data = await dynamodbClient.send(command)
-    return data.Items.map(item => unpack(item))
+    return data.Items.map(item => {
+      const unpackedItem = unpack(item)
+      unpackedItem.agroScore = getAgroScore(unpackedItem)
+      return unpackedItem
+    })
   } catch (err) {
     console.log(`[DynamoDB Error]: ${err}`)
     return null

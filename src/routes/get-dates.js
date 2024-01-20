@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
     if (items.length === 0) {
       return res.status(404).send('No dates found.')
     }
-    console.log(items)
     return res.status(200).json(items)
   } catch (err) {
     console.error('Error querying DynamoDB:', err)

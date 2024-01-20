@@ -35,6 +35,9 @@ app.use('/get-by-date', getByDate)
 const getAllDates = require('./routes/get-dates')
 app.use('/get-dates', getAllDates)
 
+const getHistory = require('./routes/get-history')
+app.use('/get-history', getHistory)
+
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
