@@ -1,11 +1,24 @@
 # <p>AEC 2024 — Atlantic Engineering Competition — Fredericton, NB<p>
-<p align="center"><img src="https://github.com/AEC-2024/pHGuard-Backend/assets/63607399/af3fea8a-9f81-45e6-b5de-241f98dfe4bf"></p>
+
+<p align="center"><img src="assets/pHGuard_Logo.png" style="width: 300px;"/></p>
 
 ## pHGuard 
 pHGuard is a software designed to help farmers visualize and optimize the quality of their soil to maximize farming efficiency. The system uses an industry standard tech stack that can be found below.
 
 ## pHGuard-Backend
 Public Repository for pHGuard backend
+
+## Getting Started
+To build the project from source, clone this repository and run it as shown below:
+
+```sh
+git clone https://github.com/AEC-2024/pHGuard-Backend.git
+cd pHGuard-Backend
+npm i
+npm run dev
+```
+
+This will start a development server running on localhost:5000 and allow for the [frontend project](https://github.com/AEC-2024/pHGuard-Frontend) to interact with the database.
 
 ## Tech Stack
 Express JS used to create REST API and endpoints for UI to call
