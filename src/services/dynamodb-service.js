@@ -11,6 +11,7 @@ const dynamodbClient = new DynamoDBClient({ region: process.env.AWS_REGION })
 const tableName = process.env.DYNAMO_TABLE_NAME
 
 async function putItem(params) {
+  const startTime = performance.now()
   const payload = {
     TableName: tableName,
     Item: {
@@ -26,6 +27,8 @@ async function putItem(params) {
   try {
     const command = new PutItemCommand(payload)
     await dynamodbClient.send(command)
+    const endTime = performance.now()
+    console.log(`Query putItem: ${endTime - startTime} milliseconds`)
   } catch (err) {
     console.log(`[DynamoDB Error]: ${err}`)
     return null
@@ -33,6 +36,7 @@ async function putItem(params) {
 }
 
 async function queryByDay(day) {
+  const startTime = performance.now()
   const payload = {
     TableName: tableName,
     KeyConditionExpression: 'PK = :pk and begins_with(SK, :sk)',
@@ -48,8 +52,11 @@ async function queryByDay(day) {
     return data.Items.map(item => {
       const unpackedItem = unpack(item)
       unpackedItem.agroScore = getAgroScore(unpackedItem)
+      const endTime = performance.now()
+      console.log(`Query queryByDay: ${endTime - startTime} milliseconds`)
       return unpackedItem
     })
+    
   } catch (err) {
     console.log(`[DynamoDB Error]: ${err}`)
     return null
@@ -57,6 +64,7 @@ async function queryByDay(day) {
 }
 
 async function getAllDates() {
+  const startTime = performance.now()
   const scanParams = {
     TableName: tableName,
     ProjectionExpression: 'PK'
@@ -73,7 +81,8 @@ async function getAllDates() {
         dates.add(pkValue.split('#')[1])
       }
     })
-
+    const endTime = performance.now()
+    console.log(`Query getAllDates: ${endTime - startTime} milliseconds`)
     return Array.from(dates)
   } catch (err) {
     console.error(`[DynamoDB Error]: ${err}`)
