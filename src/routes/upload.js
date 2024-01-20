@@ -5,6 +5,7 @@ const multer = require('multer')
 const multerStorage = require('../helper/multer')
 const processCsv = require('../helper/csv-reader')
 const { putItem } = require('../services/dynamodb-service')
+const fs = require('fs')
 
 const upload = multer({ storage: multerStorage })
 
