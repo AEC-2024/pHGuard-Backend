@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     if (items.length === 0) {
       return res.status(404).send('No items found for the specified day.')
     }
-    const count = items.filter(item => item.agroScore > 120).length
+    const count = items.filter(item => item.agroScore === 150).length
     return res.status(200).json(count)
   } catch (err) {
     console.error('Error querying DynamoDB:', err)
